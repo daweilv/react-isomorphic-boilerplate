@@ -1,21 +1,15 @@
 import { renderToString } from 'react-dom/server';
 import React from 'react';
-import { StaticRouter, Switch } from 'react-router';
-import { renderRoutes } from 'react-router-config';
-import routes from '../shared/routes';
+import { StaticRouter } from 'react-router';
+import App from '../shared/App';
 
-const renderContent = req => {
-    const ctx = {};
-    const App = () => (
+const renderContent = (req, initialStates, ctx) => {
+    // console.log('renderContent initialStates', initialStates);
+    return renderToString(
         <StaticRouter location={req.url} context={ctx}>
-            <div>
-                <Switch>{renderRoutes(routes)}</Switch>
-            </div>
+            <App initialStates={initialStates} />
         </StaticRouter>
     );
-
-    const c = renderToString(<App />);
-    return c;
 };
 
 export default renderContent;

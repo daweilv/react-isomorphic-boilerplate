@@ -1,15 +1,14 @@
+import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
-import routes from '../shared/routes';
+import App from "../shared/App";
 
-const App = () => {
-    return (
-        <BrowserRouter>
-            <div>{renderRoutes(routes)}</div>
-        </BrowserRouter>
-    );
-};
+const initialStates = window.initialStates;
 
-ReactDOM.hydrate(<App />, document.getElementById('root'));
+ReactDOM.hydrate(
+    <BrowserRouter>
+        <App initialStates={initialStates} />
+    </BrowserRouter>,
+    document.getElementById('root')
+);

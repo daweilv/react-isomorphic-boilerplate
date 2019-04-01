@@ -1,23 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
+import routes from './routes';
 
-const App = props => {
+const App = ({ initialStates }) => {
     console.log('App');
-    return (
-        <div>
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/topic">Topic</Link>
-                </li>
-            </ul>
-
-            {renderRoutes(props.route.routes)}
-        </div>
-    );
+    return <div>{renderRoutes(routes, { ...initialStates })}</div>;
 };
 
 export default App;

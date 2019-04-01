@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class NotFound extends Component {
+    componentWillMount() {
+        const { staticContext } = this.props;
+        if (staticContext) {
+            staticContext.statusCode = 404;
+        }
+    }
+
     render() {
         console.log('404');
-        return (
-            <div>
-                404
-            </div>
-        );
+        return <div>404</div>;
     }
 }
 

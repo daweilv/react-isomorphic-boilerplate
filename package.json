@@ -4,13 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev:start": "nodemon dist/server.js",
+        "dev:start": "nodemon $NODE_DEBUG_OPTION dist/server.js",
         "dev:build:server": "webpack --config build/webpack.dev.server.js --watch",
         "dev:build:client": "webpack --config build/webpack.dev.client.js --watch"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "axios": "^0.18.0",
         "express": "^4.16.4",
         "express-http-proxy": "^1.5.1",
         "react": "^16.8.5",
