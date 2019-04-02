@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Topic extends Component {
-    componentDidMount() {
-
-    }
-
     render() {
         console.log('topic');
-        const {match,initialStates} = this.props;
-        console.log(match,initialStates);
-        const id = match.params.id;
-        const item = initialStates[0].data.find(o=>o.id===id)
+        const { topic } = this.props;
         return (
             <div>
                 <ul>
@@ -22,9 +15,8 @@ class Topic extends Component {
                         <Link to="/topic">Topic</Link>
                     </li>
                 </ul>
-
-                <div dangerouslySetInnerHTML={{__html:item.content}}>
-                </div>
+                <h1>{topic.title}</h1>
+                <div dangerouslySetInnerHTML={{ __html: topic.content }} />
             </div>
         );
     }

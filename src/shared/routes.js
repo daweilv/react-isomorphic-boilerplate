@@ -1,6 +1,6 @@
 import React from 'react';
-import Home from './components/Home';
-import Topic from './components/Topic';
+import HomeContainer from './containers/HomeContainer';
+import TopicContainer from './containers/TopicContainer';
 import NotFound from './components/NotFound';
 import { getParam } from './util/urlUtil';
 import axios from 'axios';
@@ -10,36 +10,17 @@ import axios from 'axios';
 export default [
     {
         path: '/',
-        component: Home,
+        component: HomeContainer,
         exact: true,
         key: 'home',
-        loadData: async url => {
-            console.log(url);
-            const params = getParam(url);
-            console.log(params);
-            const list = await axios.get('https://cnodejs.org/api/v1/topics', {
-                params,
-            });
-            return list.data;
-        },
+        loadData: HomeContainer.loadData,
     },
     {
-        path: '/topic',
-        component: Topic,
+        path: '/topic/:id',
+        component: TopicContainer,
         exact: true,
         key: 'topic',
-        loadData: async url => {
-            console.log(url);
-            const params = getParam(url);
-            console.log(params);
-            const res = await axios.get(
-                'https://cnodejs.org/api/v1/topic/' + params.id,
-                {
-                    params,
-                }
-            );
-            return res.data;
-        },
+        loadData: TopicContainer.loadData,
     },
     {
         component: NotFound,

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
-        window.initialStates = <%- JSON.stringify(initialStates)%>
+        window.__PRELOADED_STATE__ = <%- JSON.stringify(preloadedState)%>
     </script>
 </head>
 <body>
-<div id="root"><%- content%></div>
+<div id="root"><%- html%></div>
 <script src="/client.js"></script>
 </body>
 </html>
