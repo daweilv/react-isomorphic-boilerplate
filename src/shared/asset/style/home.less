@@ -1,0 +1,213 @@
+@import 'layout';
+
+.navs {
+    padding: 9px 0;
+    text-align: center;
+
+    .nav-item {
+        color: #0a0a0a;
+        display: inline-block;
+        padding: 2px 8px;
+        margin: 0 5px;
+        font-size: 17px;
+        border-radius: 2px;
+
+        .font-family-bold();
+
+        &.active {
+            background: #cfd7ff;
+            border: 1px solid #4e57ef;
+            box-shadow: 3px 4px 0px #4e57ef;
+        }
+    }
+}
+
+.topic-card {
+    border: 1px solid #d6d6d6;
+    box-shadow: 3px 3px 0px #bababa;
+    border-radius: 3px;
+    padding: 10px 12px 15px;
+
+    width: 360px;
+
+    margin: 0 auto 12px;
+    position: relative;
+    background-color: #fff;
+
+    &__title {
+        font-size: 21px;
+        line-height: 25px;
+        font-weight: 500;
+        margin: 0;
+        padding-bottom: 90px;
+    }
+    &__identifier {
+        font-size: 14px;
+        padding: 2px 4px 3px;
+        vertical-align: 3px;
+        margin-right: 5px;
+        border-radius: 4px;
+        line-height: 32px;
+        background: #111111;
+        color: #fff9ac;
+    }
+    &__meta {
+        position: absolute;
+        left: 12px;
+        right: 0;
+        bottom: 56px;
+
+        .author__avatar {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: block;
+            }
+        }
+
+        .author__name {
+            padding-left: 50px;
+            color: #666;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 0;
+            a:hover {
+                text-decoration: underline;
+            }
+
+            span {
+                display: inline-block;
+                margin-left: 4px;
+                font-weight: 400;
+                font-size: 0.8em;
+                vertical-align: 0.07em;
+            }
+        }
+    }
+    &__tag {
+        font-size: 14px;
+        color: #0a0a0a;
+        padding-left: 50px;
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+    &__addon {
+        overflow: hidden;
+        position: absolute;
+        left: 12px;
+        right: 0;
+        bottom: 12px;
+    }
+    &__views {
+        margin-right: 15px;
+    }
+    &__views,
+    &__comments {
+        font-size: 13px;
+        fill: #666;
+
+        span {
+            min-width: 28px;
+            .font-family-bold();
+            font-weight: 400;
+            color: #666;
+        }
+        img {
+            width: 20px;
+            vertical-align: -5px;
+            margin-right: 3px;
+        }
+    }
+
+    &__reading-time {
+        position: absolute;
+        right: 12px;
+        bottom: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #595959;
+    }
+}
+
+.actions {
+    padding: 0 6px;
+
+    span {
+        min-width: 28px;
+        .font-family-bold();
+        font-weight: 400;
+        color: #666;
+    }
+}
+.actions-view img {
+    width: 26px;
+    vertical-align: -7px;
+    margin-right: 5px;
+}
+.actions-comments img {
+    width: 25px;
+    vertical-align: -3px;
+    margin-right: 7px;
+}
+
+.topic__footer {
+    padding-left: 5px;
+}
+
+.separator {
+    border-left: 2px solid #dbdbdb;
+    display: inline-block;
+    margin: 0 10px;
+    height: 15px;
+}
+
+.widget {
+    border: 1px solid #003ee6;
+    box-shadow: 5px 6px 0px #0030b3;
+    padding: 0px 0px;
+    width: calc(100% - 6px);
+    position: relative;
+    overflow: hidden;
+    background: white;
+    display: block;
+    color: #0a0a0a;
+    border-radius: 3px;
+
+    &__header {
+        background: #003ee6;
+        color: white;
+        padding: 15px 0px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 0.9em;
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+            Courier, monospace;
+    }
+
+    &__body {
+        font-size: 0.9em;
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+            Courier, monospace;
+    }
+}
+
+.btn--sign {
+    border: 2px solid var(--theme-color, #1b4bcb);
+    display: block;
+    width: 85%;
+    text-align: center;
+    border-radius: 100px;
+    color: #0a0a0a;
+    font-size: 1.1em;
+    background: #dee4ff;
+    margin: 20px auto;
+    padding: 18px 0px;
+    font-weight: bold;
+}

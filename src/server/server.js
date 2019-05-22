@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducer from '../shared/reducer';
+const manifest = require('../../dist/client/manifest.json');
 
 const renderContent = (location, store, ctx) => {
     return renderToString(
@@ -23,7 +24,7 @@ const server = async (req, res) => {
     const store = createStore(reducer, applyMiddleware(thunkMiddleware));
     const matchedRoutes = matchRoutes(routes, req.path);
     const promises = [];
-    matchedRoutes.forEach((item) => {
+    matchedRoutes.forEach(item => {
         const { route, match } = item;
         if (route.loadData) {
             promises.push(
@@ -53,6 +54,10 @@ const server = async (req, res) => {
         res.render('index', {
             html,
             preloadedState,
+            asset: {
+                script: '/' + manifest['main.js'],
+                link: '/' + manifest['main.css'],
+            },
         });
     }
 };

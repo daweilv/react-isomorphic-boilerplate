@@ -27,15 +27,11 @@ function topicsById(state = {}, action) {
         case REQUEST_TOPIC:
             return {
                 ...state,
-                [action.id]: {
-                    ...state[action.id],
-                    isFetching: true,
-                },
             };
         case RECEIVE_TOPIC:
             return {
                 ...state,
-                [action.id]: {
+                [action.topic.id]: {
                     isFetching: false,
                     ...action.topic,
                 },
@@ -45,19 +41,9 @@ function topicsById(state = {}, action) {
     }
 }
 
-function currentTopic(state = {}, action) {
-    switch (action.type) {
-        case RECEIVE_TOPIC:
-            return {...action.topic};
-        default:
-            return state;
-    }
-}
-
 export default function(state = {}, action) {
     return {
         topics: topics(state.topics, action),
         topicsById: topicsById(state.topicsById, action),
-        currentTopic: currentTopic(state.currentTopic, action),
     };
 }

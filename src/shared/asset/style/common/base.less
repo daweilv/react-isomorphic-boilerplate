@@ -1,0 +1,97 @@
+@import 'normalize';
+
+// Document
+//
+// 1. Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+// 2. Change the default font family in all browsers.
+// 3. Correct the line height in all browsers.
+// 4. Prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS.
+// 5. Setting @viewport causes scrollbars to overlap content in IE11 and Edge, so
+//    we force a non-overlapping, non-auto-hiding scrollbar to counteract.
+// 6. Change the default tap highlight to be completely transparent in iOS.
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box; // 1
+}
+
+html {
+    font-family: sans-serif; // 2
+    line-height: 1.15; // 3
+    -webkit-text-size-adjust: 100%; // 4
+    -ms-text-size-adjust: 100%; // 4
+    -ms-overflow-style: scrollbar; // 5
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // 6
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    background: #f9f9fa;
+    color: #0a0a0a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol';
+    font-size: 18px;
+}
+
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    outline: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    text-decoration: none;
+    color: inherit;
+
+    &:focus {
+        text-decoration-skip-ink: auto;
+    }
+
+    &:active,
+    &:hover {
+        outline: 0;
+    }
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+    appearance: none;
+}
+
+.reset-btn(@background-color:transparent, @color:#000) {
+    background-color: @background-color;
+    color: @color;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    padding: 0;
+}
+
+a.button,
+button {
+    .reset-btn();
+}
+
+img {
+    max-width: 100%;
+}
+
+.font-family-bold() {
+    font-family: 'HelveticaNeue-CondensedBold', 'HelveticaNeueBoldCondensed',
+        'HelveticaNeue-Bold-Condensed', 'Helvetica Neue Bold Condensed',
+        'HelveticaNeueBold', 'HelveticaNeue-Bold', 'Helvetica Neue Bold',
+        'HelveticaNeue', 'Helvetica Neue', 'TeXGyreHerosCnBold', 'Helvetica',
+        'Tahoma', 'Geneva', 'Arial Narrow', 'Arial', sans-serif;
+    font-weight: 600;
+
+}
