@@ -1,28 +1,17 @@
-import express from 'express';
-import path from 'path';
-import server from './server';
-import compression from 'compression';
+const express = require('express');
+const path = require('path');
+const compression = require('compression');
+const devSSR = require('./devSSR');
 
 const app = express();
 app.use(compression());
-// view engine setup
-app.set('views', path.join(__dirname, '../views'));
-app.set('view engine', 'ejs');
-
-app.use(express.static(path.join(__dirname, '../../dist/client')));
 app.use(express.static(path.join(__dirname, '../../public')));
-console.log('__dirname',__dirname);
 
-// app.use(
-//     '/api',
-//     proxy('cnodejs.org', {
-//         https: true,
-//         proxyReqPathResolver: function(req) {
-//             return '/api' + req.url;
-//         },
-//     })
-// );
+if (process.env.NODE_ENV === 'development') {
+    // app.use(express.static(path.join(__dirname, '../../dist')));
+    // app.use(prodSSR);
+} else {
+    devSSR(app);
+}
 
-app.get('*', server);
-
-app.listen(3001, () => console.log(`Example app listening on port ${3001}!`));
+app.listen(3001);

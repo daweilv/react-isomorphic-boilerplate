@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {fromNow, publishDateFormatter} from "@/shared/util/timeUtil";
+import readingTime from 'reading-time' ;
 
 class TopicCard extends Component {
     render() {
@@ -50,7 +51,7 @@ class TopicCard extends Component {
                         </Link>
                     )}
 
-                    <span className="topic-card__reading-time">1 min read</span>
+                    <span className="topic-card__reading-time">{readingTime(item.content).text}</span>
                 </div>
             </div>
         );

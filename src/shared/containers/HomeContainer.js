@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadTopicsData } from '../actions';
-import Home from '../components/Home';
 import TopicCard from '@/shared/components/TopicCard';
 import TopicCardShell from '@/shared/components/TopicCardShell';
 
@@ -25,11 +24,11 @@ class HomeContainer extends Component {
     }
 
     componentWillUnmount() {
-        console.log('HomeContainer componentWillUnmount');
+        console.log('HomeContainer componentWillUnmount11');
     }
 
     render() {
-        console.log('topicstopics=>', this.props.topics);
+        // console.log('topicstopics=>', this.props.topics);
         const { topics } = this.props;
         const arr = [1, 2, 3, 4, 5, 6];
         return (

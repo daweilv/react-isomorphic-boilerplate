@@ -42,13 +42,11 @@ export const loadTopicsData = () => {
 };
 
 export const loadTopicData = id => {
-    console.log('loadTopicData');
     return async (dispatch, getState) => {
         const { topicsById } = getState();
         if (topicsById[id]) {
             return;
         }
-        // dispatch(requestTopic());
         let res;
         try {
         res = await axios.get(`https://cnodejs.org/api/v1/topic/${id}`);
@@ -56,7 +54,6 @@ export const loadTopicData = id => {
             console.log(e);
         }
 
-        console.log('topic res===>',res.status, res.data);
         if (res.status === 200 && res.data.success) {
             dispatch(receiveTopic(res.data.data));
         }
