@@ -61,7 +61,5 @@ typings/
 .DS_Store
 .idea/*
 
-build
-src/dll
 dist
 
