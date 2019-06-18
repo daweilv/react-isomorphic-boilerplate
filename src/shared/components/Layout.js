@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import './asset/style/home.less';
+import '../asset/style/home.less';
 import {Link} from "react-router-dom";
+import ScrollMemory from "react-router-scroll-memory";
 
 class Layout extends Component {
     render() {
         return (
             <>
+                <ScrollMemory />
                 <div className="header">
                     <div className="container">
                         <div className="header__left">
@@ -16,7 +18,7 @@ class Layout extends Component {
                                 />
                             </button>
                         </div>
-                        <Link className="header__center" to="/"/>
+                        <a className="header__center" href="/"/>
                         <div className="header__right">
                             <a className="btn btn_icon" href="/">
                                 <img

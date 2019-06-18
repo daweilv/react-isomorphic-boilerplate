@@ -7,17 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CNode中文社区</title>
     <link rel="icon" href="/asset/img/cnode_icon_32.png" type="image/x-icon"/>
-    <% asset.cssArray.forEach(css=>{ %>
-    <link rel="stylesheet" href="<%- css%>">
-    <% }) %>
-    <script>
-        window.__PRELOADED_STATE__ = <%- JSON.stringify(preloadedState)%>
-    </script>
+    {script}
 </head>
 <body>
-<div id="root"><%- html%></div>
-<% asset.jsArray.forEach(js=>{ %>
-<script src="<%- js%>"></script>
-<% }) %>
+<div id="root">{html}</div>
 </body>
 </html>

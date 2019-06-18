@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {fromNow, publishDateFormatter} from "@/shared/util/timeUtil";
-import readingTime from 'reading-time' ;
+import { fromNow, publishDateFormatter } from '@/shared/util/timeUtil';
+import readingTime from 'reading-time';
 
 class TopicCard extends Component {
     render() {
@@ -24,7 +24,8 @@ class TopicCard extends Component {
 
                     <span className="author__name">
                         <Link to="/user/xxx">
-                            {item.author.loginname}・{publishDateFormatter(item.create_at)}
+                            {item.author.loginname}・
+                            {publishDateFormatter(item.create_at)}
                         </Link>
                         <span>({fromNow(item.last_reply_at)})</span>
                     </span>
@@ -41,7 +42,7 @@ class TopicCard extends Component {
                         />
                         <span>{item.visit_count}</span>
                     </Link>
-                    {item.reply_count && (
+                    {!!item.reply_count && (
                         <Link to="/" className="topic-card__comments">
                             <img
                                 src={require('@/shared/asset/img/outline-mode_comment-24px.svg')}
@@ -51,7 +52,9 @@ class TopicCard extends Component {
                         </Link>
                     )}
 
-                    <span className="topic-card__reading-time">{readingTime(item.content).text}</span>
+                    <span className="topic-card__reading-time">
+                        {readingTime(item.content).text}
+                    </span>
                 </div>
             </div>
         );
