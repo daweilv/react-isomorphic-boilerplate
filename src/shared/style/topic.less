@@ -1,7 +1,4 @@
-//.content {
-//    overflow: hidden;
-//
-//}
+@import 'mixins/index';
 
 .topic {
     background-color: #fff;
@@ -9,7 +6,7 @@
     padding-right: 12px;
     border-bottom: 15px solid #f9f9fa;
     &__title {
-        font-size: 32px;
+        font-size: 28px;
         font-weight: 500;
         margin: 0;
         padding-top: 14px;
@@ -19,6 +16,7 @@
     &__meta {
         display: flex;
         align-items: center;
+        margin-bottom: 20px;
     }
 
     .author__avatar {
@@ -37,13 +35,6 @@
         font-weight: 500;
     }
 
-    &__content {
-        font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD',
-            'Book Antiqua', Georgia, serif;
-        line-height: 1.5;
-        font-size: 17px;
-        padding-bottom: 30px;
-    }
 }
 
 .replies {
@@ -118,4 +109,4 @@
     }
 }
 
-@import 'markdown.less';
+@import './common/github-markdown.less';

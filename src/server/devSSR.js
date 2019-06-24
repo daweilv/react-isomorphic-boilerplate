@@ -106,6 +106,6 @@ module.exports = app => {
     app.use(require('webpack-hot-middleware')(clientCompiler));
     app.use(devSSR);
     promises.then(() => {
-        console.info(`🌏 Server start at http://localhost:${3000}\n`);
+        console.info(`🌏 Server start at http://localhost:${3001}\n`);
     });
 };

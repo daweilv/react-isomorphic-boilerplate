@@ -1,26 +1,9 @@
-import { Provider } from 'react-redux';
+import { hot } from 'react-hot-loader/root';
 import { BrowserRouter } from 'react-router-dom';
-import App from '@/shared/App';
 import React from 'react';
-import { applyMiddleware, createStore } from 'redux';
-import reducer from '@/shared/reducer';
-import thunkMiddleware from 'redux-thunk';
-import ScrollMemory from "react-router-scroll-memory";
+import routes from '@/shared/routes';
+import { renderRoutes } from 'react-router-config';
 
-const preloadedState = window.__PRELOADED_STATE__;
+const Root = () => <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>;
 
-const store = createStore(
-    reducer,
-    preloadedState,
-    applyMiddleware(thunkMiddleware)
-);
-
-const Root = () => (
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
-);
-
-export default Root;
+export default hot(Root);

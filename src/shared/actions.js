@@ -49,8 +49,8 @@ export const loadTopicData = id => {
         }
         let res;
         try {
-        res = await axios.get(`https://cnodejs.org/api/v1/topic/${id}`);
-        }catch (e) {
+            res = await axios.get(`https://cnodejs.org/api/v1/topic/${id}`);
+        } catch (e) {
             console.log(e);
         }
 

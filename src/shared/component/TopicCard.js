@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { fromNow, publishDateFormatter } from '@/shared/util/timeUtil';
 import readingTime from 'reading-time';
+import {tagFormatter} from "@/shared/util";
 
 class TopicCard extends Component {
     render() {
@@ -30,7 +31,7 @@ class TopicCard extends Component {
                         <span>({fromNow(item.last_reply_at)})</span>
                     </span>
                     <div className="topic-card__tag">
-                        <Link to="/tag/zhaop">#{item.tab}</Link>
+                        <Link to="/tag/zhaop">#{tagFormatter(item.tab)}</Link>
                     </div>
                 </div>
 

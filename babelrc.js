@@ -11,7 +11,7 @@ module.exports = ({ server, devMode } = {}) => ({
         '@babel/preset-react',
     ],
     plugins: [
-        'react-hot-loader/babel',
+        !server && 'react-hot-loader/babel',
         !server && '@babel/plugin-transform-runtime',
     ].filter(o => !!o),
 });

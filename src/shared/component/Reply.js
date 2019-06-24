@@ -22,7 +22,7 @@ class Reply extends Component {
                 </div>
                 <div
                     className="reply__content"
-                    dangerouslySetInnerHTML={{ __html: item.content }}
+                    dangerouslySetInnerHTML={{ __html: item.content.replace('markdown-text','markdown-body')  }}
                 />
                 <div className="reply__add">
                     <Link to="/" className="reply__up">

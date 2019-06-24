@@ -1,12 +1,13 @@
+import '../style/topic.less';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadTopicData } from '../actions';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import '@/shared/asset/style/topic.less';
-import Reply from '@/shared/components/Reply';
+import Reply from '@/shared/component/Reply';
 import { fromNow, publishDateFormatter } from '@/shared/util/timeUtil';
-import TopicShell from "@/shared/components/TopicShell";
+import TopicShell from '@/shared/component/TopicShell';
+import Layout from '@/shared/component/Layout';
 
 function mapStateToProps(state, ownProps) {
     return { topic: state.topicsById[ownProps.match.params.id] };
@@ -18,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-class TopicContainer extends Component {
+class Topic extends Component {
     componentDidMount() {
         const { topic, match } = this.props;
         if (!topic) {
@@ -29,9 +30,14 @@ class TopicContainer extends Component {
 
     render() {
         const { topic } = this.props;
-        if (!topic) return <TopicShell/>;
+        if (!topic)
+            return (
+                <Layout className="topic-page">
+                    <TopicShell />
+                </Layout>
+            );
         return (
-            <>
+            <Layout className="page-topic">
                 <div className="topic">
                     <h1 className="topic__title">{topic.title}</h1>
                     <div className="topic__meta">
@@ -49,7 +55,7 @@ class TopicContainer extends Component {
                     </div>
                     <div
                         className="topic__content"
-                        dangerouslySetInnerHTML={{ __html: topic.content }}
+                        dangerouslySetInnerHTML={{ __html: topic.content.replace('markdown-text','markdown-body') }}
                     />
                 </div>
                 <div className="replies">
@@ -57,12 +63,12 @@ class TopicContainer extends Component {
                         <Reply key={o.id} item={o} />
                     ))}
                 </div>
-            </>
+            </Layout>
         );
     }
 }
 
-TopicContainer.loadData = (store, { params }) => {
+Topic.loadData = (store, { params }) => {
     return store.dispatch(loadTopicData(params.id));
 };
 
@@ -70,5 +76,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(TopicContainer)
+    )(Topic)
 );

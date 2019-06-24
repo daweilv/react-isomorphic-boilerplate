@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ContentLoader, { List } from 'react-content-loader';
+import ContentLoader from 'react-content-loader';
 
 class TopicShell extends Component {
     render() {

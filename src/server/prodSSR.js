@@ -78,5 +78,5 @@ module.exports = app => {
             next(e);
         }
     });
-    console.info(`🌏 Server start at http://localhost:${3000}\n`);
+    console.info(`🌏 Server start at http://localhost:${3001}\n`);
 };

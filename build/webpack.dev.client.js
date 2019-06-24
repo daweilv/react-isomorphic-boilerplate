@@ -7,14 +7,15 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: devMode ? 'development' : 'production',
-    devtool: 'eval-source-map',
+    devtool: devMode ? 'eval-source-map' : false,
     entry: devMode
         ? [
+
               'webpack-hot-middleware/client',
-              'react-hot-loader/patch',
+            'react-hot-loader/patch',
               './src/client/index.js',
           ]
-        : [ './src/client/index.js'],
+        : ['./src/client/index.js'],
     output: {
         filename: devMode ? 'client.[hash:8].js' : 'client.[contenthash:8].js',
         path: path.resolve(__dirname, '../dist'),
@@ -44,7 +45,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                options: createBabelConfig({devMode}),
+                options: createBabelConfig({ devMode }),
             },
             {
                 test: /\.less$/,

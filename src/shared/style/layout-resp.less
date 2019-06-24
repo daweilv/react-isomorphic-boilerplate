@@ -1,9 +1,13 @@
-@import './mixins/media.less';
+@import 'mixins/index';
 
 @media @media-up-xs {
     .container {
         width: 560px;
         margin: 0 auto;
+    }
+
+    .main .container {
+        padding: 10px 16px;
     }
 }
 
@@ -15,7 +19,6 @@
         width: 980px;
         margin: 0 auto;
     }
-
 }
 
 @media @media-up-md {
