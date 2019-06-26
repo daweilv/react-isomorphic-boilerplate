@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import './style.less';
 
+// todo: 待提供功能
+// 1. 连续加载N页后停止加载，显示继续加载提示，防止永远点不到footer
+// 2. container模式
 class ScrollList extends Component {
     constructor(props) {
         super(props);
