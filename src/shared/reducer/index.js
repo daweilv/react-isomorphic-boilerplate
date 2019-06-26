@@ -1,22 +1,38 @@
-import { RECEIVE_TOPICS, RECEIVE_TOPIC, REQUEST_TOPIC } from '../actions';
+import {
+    RECEIVE_TOPICS,
+    RECEIVE_TOPIC,
+    REQUEST_TOPIC,
+    REQUEST_TOPICS,
+} from '../actions';
 
 function topics(
     state = {
         isFetching: false,
         didInvalidate: false,
         items: [],
+        status: 'loading',
     },
     action
 ) {
     switch (action.type) {
-        case RECEIVE_TOPICS:
+        case REQUEST_TOPICS:
+            return {
+                ...state,
+                status: action.status,
+            };
+        case RECEIVE_TOPICS: {
+            let status;
+            let items = [...state.items, ...action.topics];
+            if (items.length === 0) status = 'empty';
+            if (action.topics.length === 0) status = 'nomore';
             return {
                 ...state,
                 isFetching: false,
                 didInvalidate: false,
-                items: action.topics,
-                // lastUpdated: action.receivedAt,
+                status,
+                items,
             };
+        }
         default:
             return state;
     }

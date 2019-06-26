@@ -8,6 +8,7 @@ import Reply from '@/shared/component/Reply';
 import { fromNow, publishDateFormatter } from '@/shared/util/timeUtil';
 import TopicShell from '@/shared/component/TopicShell';
 import Layout from '@/shared/component/Layout';
+import TopicLayout from '@/shared/component/TopicLayout';
 
 function mapStateToProps(state, ownProps) {
     return { topic: state.topicsById[ownProps.match.params.id] };
@@ -30,40 +31,45 @@ class Topic extends Component {
 
     render() {
         const { topic } = this.props;
-        if (!topic)
-            return (
-                <Layout className="topic-page">
-                    <TopicShell />
-                </Layout>
-            );
         return (
-            <Layout className="page-topic">
-                <div className="topic">
-                    <h1 className="topic__title">{topic.title}</h1>
-                    <div className="topic__meta">
-                        <Link className="author__avatar" to="/user">
-                            <img src={topic.author.avatar_url} alt="" />
-                        </Link>
+            <TopicLayout className="page-topic">
+                {!topic && <TopicShell />}
 
-                        <span className="author__name">
-                            <Link to="/user/xxx">
-                                {topic.author.loginname}・
-                                {publishDateFormatter(topic.create_at)}
+                {topic && (
+                    <div className="topic">
+                        <h1 className="topic__title">{topic.title}</h1>
+                        <div className="topic__meta">
+                            <Link className="author__avatar" to="/user">
+                                <img src={topic.author.avatar_url} alt="" />
                             </Link>
-                            <span>({fromNow(topic.last_reply_at)})</span>
-                        </span>
+
+                            <span className="author__name">
+                                <Link to="/user/xxx">
+                                    {topic.author.loginname}・
+                                    {publishDateFormatter(topic.create_at)}
+                                </Link>
+                                <span>({fromNow(topic.last_reply_at)})</span>
+                            </span>
+                        </div>
+                        <div
+                            className="topic__content"
+                            dangerouslySetInnerHTML={{
+                                __html: topic.content.replace(
+                                    'markdown-text',
+                                    'markdown-body'
+                                ),
+                            }}
+                        />
                     </div>
-                    <div
-                        className="topic__content"
-                        dangerouslySetInnerHTML={{ __html: topic.content.replace('markdown-text','markdown-body') }}
-                    />
-                </div>
-                <div className="replies">
-                    {topic.replies.map(o => (
-                        <Reply key={o.id} item={o} />
-                    ))}
-                </div>
-            </Layout>
+                )}
+                {topic && (
+                    <div className="replies">
+                        {topic.replies.map(o => (
+                            <Reply key={o.id} item={o} />
+                        ))}
+                    </div>
+                )}
+            </TopicLayout>
         );
     }
 }
