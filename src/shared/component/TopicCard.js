@@ -15,6 +15,9 @@ class TopicCard extends Component {
                         {item.top && (
                             <span className="topic-card__identifier">置顶</span>
                         )}
+                        {!item.top && item.good && (
+                            <span className="topic-card__identifier">精华</span>
+                        )}
                         {item.title}
                     </h3>
                 </Link>

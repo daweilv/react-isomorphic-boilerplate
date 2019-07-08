@@ -10,7 +10,7 @@ class NotFound extends Component {
 
     render() {
         console.log('404');
-        return <div>404</div>;
+        return <div>404页面</div>;
     }
 }
 

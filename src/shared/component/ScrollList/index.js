@@ -5,6 +5,14 @@ import './style.less';
 // todo: 待提供功能
 // 1. 连续加载N页后停止加载，显示继续加载提示，防止永远点不到footer
 // 2. container模式
+const ITEMS_STATUS = {
+    INIT: 'INIT',
+    LOADING: 'LOADING',
+    LOADED: 'LOADED',
+    EMPTY: 'EMPTY',
+    ENDED: 'ENDED',
+};
+
 class ScrollList extends Component {
     constructor(props) {
         super(props);
@@ -40,9 +48,9 @@ class ScrollList extends Component {
                 className={classNames('scroll_more', className)}
             >
                 {children}
-                {status === 'empty' && <Empty />}
-                {status === 'loading' && <Loading />}
-                {status === 'nomore' && <NoMore />}
+                {status === ITEMS_STATUS.EMPTY && <Empty />}
+                {status === ITEMS_STATUS.LOADING && <Loading />}
+                {status === ITEMS_STATUS.ENDED && <Ended />}
             </div>
         );
     }
@@ -60,7 +68,7 @@ const Empty = () => {
     );
 };
 
-const NoMore = () => {
+const Ended = () => {
     return (
         <div className="tips">
             <span>到底啦</span>

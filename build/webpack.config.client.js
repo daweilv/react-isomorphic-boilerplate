@@ -10,9 +10,8 @@ module.exports = {
     devtool: devMode ? 'eval-source-map' : false,
     entry: devMode
         ? [
-
               'webpack-hot-middleware/client',
-            'react-hot-loader/patch',
+              'react-hot-loader/patch',
               './src/client/index.js',
           ]
         : ['./src/client/index.js'],
@@ -23,8 +22,6 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: devMode ? 'asset/[name].css' : 'asset/[name].[hash].css',
             chunkFilename: devMode ? 'asset/[id].css' : 'asset/[id].[hash].css',
         }),
@@ -33,7 +30,7 @@ module.exports = {
             template: path.resolve(__dirname, '../src/views/index.ejs'),
             filename: 'tpl.html',
         }),
-    ].filter(o => !!o),
+    ].filter(Boolean),
     resolve: {
         alias: {
             '@': path.resolve(__dirname, '../src'),

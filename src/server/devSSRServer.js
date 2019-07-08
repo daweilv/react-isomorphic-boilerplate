@@ -7,11 +7,13 @@ const thunkMiddleware = require('redux-thunk').default;
 const matchRoutes = require('react-router-config').matchRoutes;
 const webpack = require('webpack');
 const middleware = require('webpack-dev-middleware');
-const serverConfig = require('../../build/webpack.dev.server');
-const clientConfig = require('../../build/webpack.dev.client');
+const serverConfig = require('../../build/webpack.config.server');
+const clientConfig = require('../../build/webpack.config.client');
 
-let serverCompiler, serverRoot, reducer, routes;
-serverCompiler = webpack(serverConfig);
+let serverRoot;
+let reducer;
+let routes;
+let serverCompiler = webpack(serverConfig);
 const mfs = new MemoryFs();
 serverCompiler.outputFileSystem = mfs;
 const serverPromise = new Promise(resolve => {
@@ -48,13 +50,13 @@ const clientPromise = new Promise(resolve => {
 let started = false;
 
 let promises = Promise.all([serverPromise, clientPromise]);
-async function devSSR(req, res, next) {
+async function devSSRServer(req, res, next) {
     if (!started) {
         await promises;
     }
     try {
         const store = createStore(reducer, applyMiddleware(thunkMiddleware));
-        const matchedRoutes = matchRoutes(routes, req.originalUrl);
+        const matchedRoutes = matchRoutes(routes, req.path);
         const promises = [];
         matchedRoutes.forEach(item => {
             const { route, match } = item;
@@ -104,7 +106,7 @@ async function devSSR(req, res, next) {
 module.exports = app => {
     app.use(instanceMiddleware);
     app.use(require('webpack-hot-middleware')(clientCompiler));
-    app.use(devSSR);
+    app.use(devSSRServer);
     promises.then(() => {
         console.info(`🌏 Server start at http://localhost:${3001}\n`);
     });

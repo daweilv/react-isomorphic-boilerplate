@@ -27,7 +27,7 @@ module.exports = app => {
                 reducer,
                 applyMiddleware(thunkMiddleware)
             );
-            const matchedRoutes = matchRoutes(routes, req.originalUrl);
+            const matchedRoutes = matchRoutes(routes, req.path);
             const promises = [];
             matchedRoutes.forEach(item => {
                 const { route, match } = item;

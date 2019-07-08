@@ -1,56 +1,62 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadTopicsData } from '../actions';
+import { ITEMS_STATUS, loadTopicsData } from '../actions';
 import TopicCard from '../component/TopicCard';
 import TopicCardShell from '../component/TopicCardShell';
 import Layout from '../component/Layout';
 import ScrollList from '@/shared/component/ScrollList';
+import { parseSearch } from '@/shared/util/urlUtil';
 
 function mapStateToProps(state) {
-    return { topics: state.topics.items, status: state.topics.status };
+    const { topicsByTab, selectedTab } = state;
+    const { items, status } = topicsByTab[selectedTab] || {
+        items: [],
+        page: 0,
+        status: ITEMS_STATUS.INIT,
+    };
+    return { items, status, selectedTab };
 }
 
 const mapDispatchToProps = dispatch => ({
-    loadData: page => {
-        dispatch(loadTopicsData(page));
+    loadData: query => {
+        dispatch(loadTopicsData(query));
     },
 });
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.page = 1;
         this.loadMore = this.loadMore.bind(this);
     }
 
     componentDidMount() {
         console.log('HomeContainer componentDidMount');
-        if (!this.props.topics.length) {
-            console.log('load data home');
-            this.props.loadData();
+        const { selectedTab } = this.props;
+        this.props.loadData({ tab: selectedTab });
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log('HomeContainer componentDidUpdate');
+        if (prevProps.location !== this.props.location) {
+            let tab = parseSearch(this.props.location.search).tab;
+            this.props.loadData({
+                tab: tab || 'all',
+            });
         }
     }
 
-    componentWillUnmount() {
-        console.log('HomeContainer componentWillUnmount11');
-    }
-
-    async query() {
-        if (this.props.status === 'loading') return;
-        // this.setState({ listStatus: 'loading' });
-        ++this.page
-        this.props.loadData(this.page);
-    }
-
     loadMore() {
-        if (this.props.status === 'nomore') return;
+        if (this.props.status === ITEMS_STATUS.ENDED) return;
         this.query();
     }
 
+    query() {
+        const { selectedTab } = this.props;
+        this.props.loadData({ tab: selectedTab, loadmore: true });
+    }
+
     render() {
-        const { topics, status } = this.props;
-        console.log('status==>', status);
-        const arr = [1, 2, 3, 4, 5, 6];
+        const { items, status, selectedTab } = this.props;
         return (
             <Layout className="page-home">
                 <ScrollList
@@ -58,18 +64,21 @@ class Home extends Component {
                     onTheEnd={this.loadMore}
                     status={status}
                     threshold={200}
+                    key={selectedTab}
                 >
-                    {topics.length
-                        ? topics.map(o => <TopicCard key={o.id} item={o} />)
-                        : arr.map(o => <TopicCardShell key={o} />)}
+                    {status === ITEMS_STATUS.INIT ? (
+                        <TopicCardShell />
+                    ) : (
+                        items.map(o => <TopicCard key={o.id} item={o} />)
+                    )}
                 </ScrollList>
             </Layout>
         );
     }
 }
 
-Home.loadData = store => {
-    return store.dispatch(loadTopicsData());
+Home.loadData = (store, { query, params }) => {
+    return store.dispatch(loadTopicsData({ ...query, ...params }));
 };
 
 export default connect(

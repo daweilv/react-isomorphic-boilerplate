@@ -1,4 +1,4 @@
-module.exports = ({ server, devMode } = {}) => ({
+module.exports = ({ server } = {}) => ({
     presets: [
         [
             '@babel/preset-env',
@@ -13,5 +13,5 @@ module.exports = ({ server, devMode } = {}) => ({
     plugins: [
         !server && 'react-hot-loader/babel',
         !server && '@babel/plugin-transform-runtime',
-    ].filter(o => !!o),
+    ].filter(Boolean),
 });

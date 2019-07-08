@@ -1,26 +1,9 @@
 @import 'mixins/index';
 
-.navs {
-    padding: 9px 0;
-    text-align: center;
-
-    .nav-item {
-        color: #0a0a0a;
-        display: inline-block;
-        padding: 2px 8px;
-        margin: 0 5px;
-        font-size: 17px;
-        border-radius: 2px;
-
-        .font-family-bold();
-
-        &.active {
-            background: #cfd7ff;
-            border: 1px solid #4e57ef;
-            box-shadow: 3px 4px 0px #4e57ef;
-        }
-    }
+.page-home .main .container {
+    padding: 10px 14px 0;
 }
+
 
 .topic-card {
     border: 1px solid #d6d6d6;
@@ -54,7 +37,6 @@
     &__meta {
         position: absolute;
         left: 12px;
-        right: 0;
         bottom: 56px;
 
         .author__avatar {
@@ -75,9 +57,10 @@
             color: #666;
             font-size: 14px;
             font-weight: bold;
-            margin: 5px 0;a {
-            color: inherit;
-        }
+            margin: 5px 0;
+            a {
+                color: inherit;
+            }
             a:hover {
                 text-decoration: underline;
             }
@@ -170,35 +153,35 @@
     height: 15px;
 }
 
-.widget {
-    border: 1px solid #003ee6;
-    box-shadow: 5px 6px 0px #0030b3;
-    padding: 0px 0px;
-    width: calc(100% - 6px);
-    position: relative;
-    overflow: hidden;
-    background: white;
-    display: block;
-    color: #0a0a0a;
-    border-radius: 3px;
-
-    &__header {
-        background: #003ee6;
-        color: white;
-        padding: 15px 0px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 0.9em;
-        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
-            Courier, monospace;
-    }
-
-    &__body {
-        font-size: 0.9em;
-        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
-            Courier, monospace;
-    }
-}
+//.widget {
+//    border: 1px solid #003ee6;
+//    box-shadow: 5px 6px 0px #0030b3;
+//    padding: 0px 0px;
+//    width: calc(100% - 6px);
+//    position: relative;
+//    overflow: hidden;
+//    background: white;
+//    display: block;
+//    color: #0a0a0a;
+//    border-radius: 3px;
+//
+//    &__header {
+//        background: #003ee6;
+//        color: white;
+//        padding: 15px 0px;
+//        text-align: center;
+//        font-weight: bold;
+//        font-size: 0.9em;
+//        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+//            Courier, monospace;
+//    }
+//
+//    &__body {
+//        font-size: 0.9em;
+//        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+//            Courier, monospace;
+//    }
+//}
 
 .btn--sign {
     border: 2px solid var(--theme-color, #1b4bcb);
@@ -210,6 +193,8 @@
     font-size: 1.1em;
     background: #dee4ff;
     margin: 20px auto;
-    padding: 18px 0px;
+    padding: 12px 0px;
     font-weight: bold;
 }
+
+@import "side.less";

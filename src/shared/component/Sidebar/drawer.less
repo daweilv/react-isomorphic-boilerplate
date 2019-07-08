@@ -1,0 +1,50 @@
+.drawer {
+    transition: margin-left 250ms ease-in-out;
+    width: 100%;
+}
+
+.drawer--open {
+    margin-left: 270px;
+    overflow: hidden;
+    position: relative;
+}
+
+.drawer__overlay {
+    transition: background-color 250ms ease-in-out;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.drawer__content {
+    position: fixed;
+    transform: translateX(-270px);
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: #fff;
+    transition: transform 250ms ease-in-out;
+}
+.header {
+    transition: left 250ms ease-in-out;
+    width: 100%;
+}
+.drawer--open {
+    .drawer__content {
+        transform: translateX(0);
+    }
+    .drawer__overlay {
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .header {
+        left: 270px;
+    }
+}

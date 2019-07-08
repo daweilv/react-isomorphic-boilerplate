@@ -3,34 +3,46 @@ import {
     RECEIVE_TOPIC,
     REQUEST_TOPIC,
     REQUEST_TOPICS,
+    ITEMS_STATUS,
+    SELECT_TAB,
 } from '../actions';
+import { combineReducers } from 'redux';
 
 function topics(
-    state = {
-        isFetching: false,
-        didInvalidate: false,
-        items: [],
-        status: 'loading',
-    },
+    state = { items: [], page: 0, status: ITEMS_STATUS.INIT },
     action
 ) {
     switch (action.type) {
-        case REQUEST_TOPICS:
+        case REQUEST_TOPICS: {
+            if (state.status === ITEMS_STATUS.INIT) {
+                return state;
+            } else {
+                return {
+                    ...state,
+                    page: action.page,
+                    status: ITEMS_STATUS.LOADING,
+                };
+            }
+        }
+        case RECEIVE_TOPICS:
             return {
                 ...state,
-                status: action.status,
+                page: action.page,
+                items: [...state.items, ...action.items],
+                status: ITEMS_STATUS.LOADED,
             };
+        default:
+            return state;
+    }
+}
+
+function topicsByTab(state = {}, action) {
+    switch (action.type) {
+        case REQUEST_TOPICS:
         case RECEIVE_TOPICS: {
-            let status;
-            let items = [...state.items, ...action.topics];
-            if (items.length === 0) status = 'empty';
-            if (action.topics.length === 0) status = 'nomore';
             return {
                 ...state,
-                isFetching: false,
-                didInvalidate: false,
-                status,
-                items,
+                [action.tab]: topics(state[action.tab], action),
             };
         }
         default:
@@ -57,9 +69,20 @@ function topicsById(state = {}, action) {
     }
 }
 
-export default function(state = {}, action) {
-    return {
-        topics: topics(state.topics, action),
-        topicsById: topicsById(state.topicsById, action),
-    };
+function selectedTab(state = 'all', action) {
+    switch (action.type) {
+        case REQUEST_TOPICS:
+        case SELECT_TAB:
+            return action.tab;
+        default:
+            return state;
+    }
 }
+
+const rootReducer = combineReducers({
+    topicsByTab,
+    topicsById,
+    selectedTab,
+});
+
+export default rootReducer;

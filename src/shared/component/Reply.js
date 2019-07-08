@@ -25,13 +25,13 @@ class Reply extends Component {
                     dangerouslySetInnerHTML={{ __html: item.content.replace('markdown-text','markdown-body')  }}
                 />
                 <div className="reply__add">
-                    <Link to="/" className="reply__up">
+                    <div className="reply__up">
                         <img
                             src={require('@/shared/asset/img/outline-thumb_up-24px.svg')}
                             alt=""
                         />
                         <span>{item.ups.length}</span>
-                    </Link>
+                    </div>
                 </div>
             </div>
         );
