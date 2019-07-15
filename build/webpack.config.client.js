@@ -4,6 +4,7 @@ const createBabelConfig = require('../babelrc');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin')
 
 module.exports = {
     mode: devMode ? 'development' : 'production',
@@ -21,6 +22,7 @@ module.exports = {
         publicPath: '/',
     },
     plugins: [
+        new LoadablePlugin(),
         new MiniCssExtractPlugin({
             filename: devMode ? 'asset/[name].css' : 'asset/[name].[hash].css',
             chunkFilename: devMode ? 'asset/[id].css' : 'asset/[id].[hash].css',

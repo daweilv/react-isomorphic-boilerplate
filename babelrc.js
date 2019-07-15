@@ -11,6 +11,8 @@ module.exports = ({ server } = {}) => ({
         '@babel/preset-react',
     ],
     plugins: [
+        '@loadable/babel-plugin',
+        '@babel/plugin-syntax-dynamic-import',
         !server && 'react-hot-loader/babel',
         !server && '@babel/plugin-transform-runtime',
     ].filter(Boolean),
