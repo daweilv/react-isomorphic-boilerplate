@@ -1,11 +1,9 @@
-import loadable from '@loadable/component';
-const Home = loadable(() => import('./page/Home'));
-const Topic = loadable(() => import('./page/Topic'));
-const NotFound = loadable(() => import('./page/NotFound'));
-const About = loadable(() => import('./page/About'));
+import Home from './page/Home';
+import Topic from './page/Topic';
+import NotFound from './component/NotFound';
 import App from './App';
+import About from '@/shared/page/About';
 import routesConfig from '../../config/routes.config';
-
 
 export default [
     {
