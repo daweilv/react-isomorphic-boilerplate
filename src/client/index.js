@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import reducer from '@/shared/reducer';
 import thunkMiddleware from 'redux-thunk';
-import { loadableReady } from '@loadable/component';
 
 const preloadedState = window.__PRELOADED_STATE__;
 
@@ -17,10 +16,8 @@ const store = createStore(
 
 const App = () => (
     <Provider store={store}>
-        <Root />
+        <Root/>
     </Provider>
 );
 
-loadableReady(() => {
-    ReactDOM.hydrate(<App />, document.getElementById('root'));
-});
+ReactDOM.hydrate(<App />, document.getElementById('root'));
