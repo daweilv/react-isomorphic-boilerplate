@@ -77,10 +77,6 @@ class Home extends Component {
     }
 }
 
-Home.loadData = (store, { query, params }) => {
-    return store.dispatch(loadTopicsData({ ...query, ...params }));
-};
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps

@@ -74,10 +74,6 @@ class Topic extends Component {
     }
 }
 
-Topic.loadData = (store, { params }) => {
-    return store.dispatch(loadTopicData(params.id));
-};
-
 export default withRouter(
     connect(
         mapStateToProps,

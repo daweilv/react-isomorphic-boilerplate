@@ -79,7 +79,6 @@ export const loadTopicsData = _ => {
                     page: params.page,
                 })
             );
-            console.time('topics load time: ');
             try {
                 const res = await axios.get(
                     'https://cnodejs.org/api/v1/topics',
@@ -99,7 +98,6 @@ export const loadTopicsData = _ => {
             } catch (e) {
                 console.log(e.code);
             }
-            console.timeEnd('topics load time: ');
         } else {
             if (getState().selectedTab !== params.tab) {
                 dispatch(selectTab(params.tab))

@@ -13,13 +13,14 @@ const clientConfig = require('../../build/webpack.config.client');
 let serverRoot;
 let reducer;
 let routes;
+let stats;
 let serverCompiler = webpack(serverConfig);
 const mfs = new MemoryFs();
 serverCompiler.outputFileSystem = mfs;
 const serverPromise = new Promise(resolve => {
-    serverCompiler.watch({}, (err, stats) => {
+    serverCompiler.watch({}, (err, _stats) => {
         if (err) throw err;
-        stats = stats.toJson();
+        stats = _stats.toJson();
         stats.errors.forEach(err => console.error(err));
         stats.warnings.forEach(warn => console.warn(warn));
 
