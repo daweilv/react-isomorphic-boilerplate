@@ -1,3 +1,3 @@
 module.exports = {
-    mode: 'csr', // csr
+    mode: 'ssr', // csr
 };

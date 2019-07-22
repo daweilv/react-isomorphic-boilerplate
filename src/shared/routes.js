@@ -5,7 +5,7 @@ const NotFound = loadable(() => import('./page/NotFound'));
 const About = loadable(() => import('./page/About'));
 import App from './App';
 import routesConfig from '../../config/routes.config';
-
+import { loadTopicData, loadTopicsData } from '@/shared/actions';
 
 export default [
     {
@@ -16,13 +16,15 @@ export default [
                 component: Home,
                 exact: true,
                 key: 'home',
-                loadData: Home.loadData,
+                loadData: (store, { query, params }) =>
+                    store.dispatch(loadTopicsData({ ...query, ...params })),
             },
             {
                 path: routesConfig.Topic,
                 component: Topic,
                 key: 'topic',
-                loadData: Topic.loadData,
+                loadData: (store, { params }) =>
+                    store.dispatch(loadTopicData(params.id)),
             },
             {
                 path: routesConfig.About,

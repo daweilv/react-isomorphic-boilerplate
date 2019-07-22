@@ -28,10 +28,11 @@ module.exports = {
             chunkFilename: devMode ? 'asset/[id].css' : 'asset/[id].[hash].css',
         }),
         devMode && new webpack.HotModuleReplacementPlugin(),
-        new HTMLWebpackPlugin({
-            template: path.resolve(__dirname, '../src/views/index.ejs'),
-            filename: 'tpl.html',
-        }),
+        // new HTMLWebpackPlugin({
+        //     template: path.resolve(__dirname, '../src/views/index.ejs'),
+        //     filename: 'tpl.html',
+        // }),
+        new LoadablePlugin()
     ].filter(Boolean),
     resolve: {
         alias: {

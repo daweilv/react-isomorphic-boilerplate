@@ -12,7 +12,7 @@ module.exports = ({ server } = {}) => ({
     ],
     plugins: [
         '@loadable/babel-plugin',
-        '@babel/plugin-syntax-dynamic-import',
+        // '@babel/plugin-syntax-dynamic-import',
         !server && 'react-hot-loader/babel',
         !server && '@babel/plugin-transform-runtime',
     ].filter(Boolean),

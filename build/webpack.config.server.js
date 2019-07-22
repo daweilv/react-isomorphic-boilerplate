@@ -1,5 +1,7 @@
 const path = require('path');
 const createBabelConfig = require('../babelrc');
+// const LoadablePlugin = require('@loadable/webpack-plugin');
+
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -9,14 +11,16 @@ module.exports = {
     entry: ['./src/server/Root.js'],
     output: {
         filename: 'serverBundle.js',
-        path: path.join(__dirname, '../dist'),
+        path: path.join(__dirname, '../dist/server'),
         libraryTarget: 'commonjs2',
+        publicPath: "/"
     },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, '../src'),
         },
     },
+    // plugins: [new LoadablePlugin()],
     module: {
         rules: [
             {
