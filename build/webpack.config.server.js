@@ -1,6 +1,8 @@
 const path = require('path');
 const createBabelConfig = require('../babelrc');
 const devMode = process.env.NODE_ENV !== 'production';
+const LoadablePlugin = require('@loadable/webpack-plugin');
+const nodeExternals = require( 'webpack-node-externals');
 
 module.exports = {
     target: 'node',
@@ -17,6 +19,13 @@ module.exports = {
             '@': path.resolve(__dirname, '../src'),
         },
     },
+    plugins: [
+        new LoadablePlugin({
+            filename: 'server-stats.json',
+            writeToDisk: true,
+        }),
+    ],
+    externals: ['@loadable/component', nodeExternals()],
     module: {
         rules: [
             {

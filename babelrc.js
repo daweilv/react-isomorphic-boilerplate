@@ -6,6 +6,7 @@ module.exports = ({ server } = {}) => ({
                 targets: server
                     ? { node: 'current' }
                     : { browsers: ['> 5%', 'last 2 versions'] },
+                modules: server ? 'commonjs' : false,
             },
         ],
         '@babel/preset-react',
@@ -13,5 +14,7 @@ module.exports = ({ server } = {}) => ({
     plugins: [
         !server && 'react-hot-loader/babel',
         !server && '@babel/plugin-transform-runtime',
+        server && 'babel-plugin-dynamic-import-node',
+        '@loadable/babel-plugin',
     ].filter(Boolean),
 });

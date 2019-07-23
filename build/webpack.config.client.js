@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const createBabelConfig = require('../babelrc');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 module.exports = {
     mode: devMode ? 'development' : 'production',
@@ -26,9 +26,10 @@ module.exports = {
             chunkFilename: devMode ? 'asset/[id].css' : 'asset/[id].[hash].css',
         }),
         devMode && new webpack.HotModuleReplacementPlugin(),
-        new HTMLWebpackPlugin({
-            template: path.resolve(__dirname, '../src/views/index.ejs'),
-            filename: 'tpl.html',
+        // 写入 loadable-stats.json
+        new LoadablePlugin({
+            filename: 'client-stats.json',
+            writeToDisk: true,
         }),
     ].filter(Boolean),
     resolve: {

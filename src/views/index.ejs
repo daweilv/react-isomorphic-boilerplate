@@ -7,9 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CNode中文社区</title>
     <link rel="icon" href="/asset/img/cnode_icon_32.png" type="image/x-icon"/>
-    {script}
+    <% if(extractor){ %>
+    <%- extractor.getStyleTags() %>
+    <% } %>
+    <% if(preloadedState){ %>
+    <script>window.__PRELOADED_STATE__ = <%- JSON.stringify(preloadedState)%></script>
+    <% } %>
 </head>
 <body>
-<div id="root">{html}</div>
+<div id="root"><%- html %></div>
+<% if(extractor) {%>
+<%- extractor.getScriptTags() %>
+<% } %>
 </body>
 </html>

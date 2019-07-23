@@ -2,6 +2,7 @@ const applyMiddleware = require('redux').applyMiddleware;
 const createStore = require('redux').createStore;
 const MemoryFs = require('memory-fs');
 const path = require('path');
+const ejs = require('ejs');
 const renderToString = require('react-dom/server').renderToString;
 const thunkMiddleware = require('redux-thunk').default;
 const matchRoutes = require('react-router-config').matchRoutes;
@@ -9,6 +10,7 @@ const webpack = require('webpack');
 const middleware = require('webpack-dev-middleware');
 const serverConfig = require('../../build/webpack.config.server');
 const clientConfig = require('../../build/webpack.config.client');
+const ChunkExtractor = require('@loadable/server').ChunkExtractor;
 
 let serverRoot;
 let reducer;
@@ -30,15 +32,20 @@ const serverPromise = new Promise(resolve => {
             serverConfig.output.filename
         );
         const bundle = mfs.readFileSync(bundlePath, 'utf8');
-        const Module = module.constructor;
-        const m = new Module();
-        m._compile(bundle, 'serverBundle.js');
+        // 读取内容并编译模块
+        const vm = require('vm');
+        const sandbox = {
+            console,
+            module,
+            require,
+        };
+        vm.runInNewContext(bundle, sandbox);
+        let m = sandbox.module;
         serverRoot = m.exports.default;
         reducer = m.exports.reducer;
         routes = m.exports.routes;
         resolve();
     });
-    // resolve();
 });
 
 let clientCompiler;
@@ -51,6 +58,27 @@ const clientPromise = new Promise(resolve => {
 let started = false;
 
 let promises = Promise.all([serverPromise, clientPromise]);
+
+async function renderEjs({ extractor, preloadedState, html }) {
+    return new Promise((resolve, reject) => {
+        ejs.renderFile(
+            path.resolve(__dirname, '../views/index.ejs'),
+            {
+                extractor,
+                preloadedState,
+                html,
+            },
+            function(err, str) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(str);
+                }
+            }
+        );
+    });
+}
+
 async function devSSRServer(req, res, next) {
     if (!started) {
         await promises;
@@ -78,26 +106,24 @@ async function devSSRServer(req, res, next) {
 
         await Promise.all(promises);
 
+        const clientStatsFile = path.resolve('dist/client-stats.json');
+        const extractor = new ChunkExtractor({ statsFile: clientStatsFile });
+
         const ctx = {};
-        const html = renderToString(serverRoot(req.originalUrl, store, ctx));
+        const App = serverRoot(req.originalUrl, store, ctx);
+        const jsx = extractor.collectChunks(App);
+        const html = renderToString(jsx);
+
         if (ctx.statusCode === 404) {
             res.status(404).end('404 la');
         } else {
             const preloadedState = store.getState();
-            let tpl = clientCompiler.outputFileSystem.readFileSync(
-                path.join(clientConfig.output.path, 'tpl.html'),
-                'utf8'
-            );
-            res.send(
-                tpl
-                    .replace(
-                        '{script}',
-                        `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-                            preloadedState
-                        )}</script>`
-                    )
-                    .replace('{html}', html)
-            );
+            const ejsHTML = await renderEjs({
+                extractor,
+                preloadedState,
+                html,
+            });
+            res.send(ejsHTML);
         }
     } catch (e) {
         next(e);
