@@ -7,7 +7,7 @@ const renderToString = require('react-dom/server').renderToString;
 const thunkMiddleware = require('redux-thunk').default;
 const matchRoutes = require('react-router-config').matchRoutes;
 const webpack = require('webpack');
-const middleware = require('webpack-dev-middleware');
+const webpackDevMiddleware = require('webpack-dev-middleware');
 const serverConfig = require('../../build/webpack.config.server');
 const clientConfig = require('../../build/webpack.config.client');
 const ChunkExtractor = require('@loadable/server').ChunkExtractor;
@@ -50,7 +50,9 @@ const serverPromise = new Promise(resolve => {
 
 let clientCompiler;
 clientCompiler = webpack(clientConfig);
-let instanceMiddleware = middleware(clientCompiler);
+let instanceMiddleware = webpackDevMiddleware(clientCompiler, {
+    logLevel: 'warn',
+});
 const clientPromise = new Promise(resolve => {
     instanceMiddleware.waitUntilValid(resolve);
 });
