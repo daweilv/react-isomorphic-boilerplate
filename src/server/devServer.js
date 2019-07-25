@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const middleware = require('webpack-dev-middleware');
 const clientConfig = require('../../build/webpack.config.client');
-const routesConfig = require('../../config/routes.config');
+const routesConfig = require('../../config/routes');
 
 let clientCompiler;
 clientCompiler = webpack(clientConfig);

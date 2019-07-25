@@ -15,14 +15,13 @@ const ChunkExtractor = require('@loadable/server').ChunkExtractor;
 let serverRoot;
 let reducer;
 let routes;
-let stats;
 let serverCompiler = webpack(serverConfig);
 const mfs = new MemoryFs();
 serverCompiler.outputFileSystem = mfs;
 const serverPromise = new Promise(resolve => {
     serverCompiler.watch({}, (err, _stats) => {
         if (err) throw err;
-        stats = _stats.toJson();
+        let stats = _stats.toJson();
         stats.errors.forEach(err => console.error(err));
         stats.warnings.forEach(warn => console.warn(warn));
 
@@ -61,7 +60,7 @@ let started = false;
 
 let promises = Promise.all([serverPromise, clientPromise]);
 
-async function renderEjs({ extractor, preloadedState, html }) {
+async function renderEJS({ extractor, preloadedState, html }) {
     return new Promise((resolve, reject) => {
         ejs.renderFile(
             path.resolve(__dirname, '../views/index.ejs'),
@@ -120,7 +119,7 @@ async function devSSRServer(req, res, next) {
             res.status(404).end('404 la');
         } else {
             const preloadedState = store.getState();
-            const ejsHTML = await renderEjs({
+            const ejsHTML = await renderEJS({
                 extractor,
                 preloadedState,
                 html,
